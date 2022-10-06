@@ -6,7 +6,7 @@
 /*   By: ycanga <ycanga@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 13:31:06 by ycanga            #+#    #+#             */
-/*   Updated: 2022/10/03 16:19:05 by ycanga           ###   ########.fr       */
+/*   Updated: 2022/10/05 19:55:18 by ycanga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,33 @@ void	check_arg(int argc, char **argv, t_stack *t_data)
 {
 	int		i;
 	int		j;
+	int		a;
+	int		count;
 	char	**tab;
+	int		nums[20];
+	int		digit_a;
 
 	i = 1;
+	a = 0;
+	count = ft_strlen(argv[i]);
+	tab = ft_calloc(sizeof(count), 1);
+	digit_a = t_data->digit_a;
 	while (i < argc)
 	{
-		tab = ft_split(argv[i], ' ');
-		ft_printf("%s", tab[3]);
-		// if (ft_atoi(tab[j]) == 0 && tab[j][0] != '0')
-		// 	ft_error("Dont use letters or special characters", 0, t_data);
-		t_data->a = 0;
 		j = 0;
+		tab = ft_split(argv[i], ' ');
 		while (tab[j])
 		{
-			ft_printf("%d", j);
-			// if(ft_strlcpy(t_data->stack_a[j], tab[j], ft_strlen(tab[j])))
-			// 	ft_printf("OK");
-			// else
-			// 	ft_error("Error", 0, t_data);
+			nums[a] = ft_atoi(tab[j]);
 			j++;
+			a++;
 		}
+		i++;
+	}
+	i = 0;
+	while (i < 20)
+	{
+		ft_printf("%d\n", nums[i]);
 		i++;
 	}
 }

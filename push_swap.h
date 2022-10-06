@@ -6,7 +6,7 @@
 /*   By: ycanga <ycanga@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/25 17:58:57 by ycanga            #+#    #+#             */
-/*   Updated: 2022/10/03 16:15:48 by ycanga           ###   ########.fr       */
+/*   Updated: 2022/10/05 16:22:37 by ycanga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ typedef struct s_stack
 {
 	void	**stack_a;
 	void	**stack_b;
-	int		a;
+	int		digit_a;
 }t_stack;
 
 void	check_arg(int argc, char **argv, t_stack *t_data);
