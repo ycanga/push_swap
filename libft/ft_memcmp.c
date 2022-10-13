@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycanga <ycanga@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/12 22:18:56 by ycanga            #+#    #+#             */
-/*   Updated: 2022/10/12 22:18:57 by ycanga           ###   ########.fr       */
+/*   Created: 2022/10/12 22:16:08 by ycanga            #+#    #+#             */
+/*   Updated: 2022/10/12 22:16:10 by ycanga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include <stdarg.h>
-# include <unistd.h>
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
+{
+	const unsigned char	*a;
+	const unsigned char	*b;
 
-int	ft_printf(const char *format, ...);
-int	ft_select(va_list args, const char select);
-int	ft_print_char(int c);
-int	ft_print_string(char *str);
-int	ft_print_number(int n);
-int	ft_print_unumber(unsigned int n);
-int	ft_hex(unsigned long p, char *base, int check, int baselen);
-#endif
+	a = (unsigned char *)s1;
+	b = (unsigned char *)s2;
+	while (n--)
+	{
+		if (*a != *b)
+			return (*a - *b);
+		a++;
+		b++;
+	}
+	return (0);
+}

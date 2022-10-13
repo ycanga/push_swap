@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycanga <ycanga@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/12 22:18:56 by ycanga            #+#    #+#             */
-/*   Updated: 2022/10/12 22:18:57 by ycanga           ###   ########.fr       */
+/*   Created: 2022/10/12 22:16:36 by ycanga            #+#    #+#             */
+/*   Updated: 2022/10/12 22:16:37 by ycanga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include <stdarg.h>
-# include <unistd.h>
-
-int	ft_printf(const char *format, ...);
-int	ft_select(va_list args, const char select);
-int	ft_print_char(int c);
-int	ft_print_string(char *str);
-int	ft_print_number(int n);
-int	ft_print_unumber(unsigned int n);
-int	ft_hex(unsigned long p, char *base, int check, int baselen);
-#endif
+void	ft_putendl_fd(char *s, int fd)
+{
+	ft_putstr_fd(s, fd);
+	ft_putchar_fd('\n', fd);
+}

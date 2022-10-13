@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycanga <ycanga@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/12 22:18:56 by ycanga            #+#    #+#             */
-/*   Updated: 2022/10/12 22:18:57 by ycanga           ###   ########.fr       */
+/*   Created: 2022/10/12 22:15:02 by ycanga            #+#    #+#             */
+/*   Updated: 2022/10/12 22:15:03 by ycanga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include <stdarg.h>
-# include <unistd.h>
-
-int	ft_printf(const char *format, ...);
-int	ft_select(va_list args, const char select);
-int	ft_print_char(int c);
-int	ft_print_string(char *str);
-int	ft_print_number(int n);
-int	ft_print_unumber(unsigned int n);
-int	ft_hex(unsigned long p, char *base, int check, int baselen);
-#endif
+void	ft_lstadd_front(t_list **lst, t_list *new)
+{
+	if (lst != NULL && new != NULL)
+	{
+		new->next = *lst;
+		*lst = new;
+	}
+}

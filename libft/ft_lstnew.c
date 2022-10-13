@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycanga <ycanga@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/12 22:18:56 by ycanga            #+#    #+#             */
-/*   Updated: 2022/10/12 22:18:57 by ycanga           ###   ########.fr       */
+/*   Created: 2022/10/12 22:15:48 by ycanga            #+#    #+#             */
+/*   Updated: 2022/10/12 22:15:49 by ycanga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include <stdarg.h>
-# include <unistd.h>
+t_list	*ft_lstnew(void *content)
+{
+	t_list	*r;
 
-int	ft_printf(const char *format, ...);
-int	ft_select(va_list args, const char select);
-int	ft_print_char(int c);
-int	ft_print_string(char *str);
-int	ft_print_number(int n);
-int	ft_print_unumber(unsigned int n);
-int	ft_hex(unsigned long p, char *base, int check, int baselen);
-#endif
+	r = (t_list *)malloc(sizeof(t_list));
+	if (!r)
+		return (NULL);
+	r->content = (void *)content;
+	r->next = NULL;
+	return (r);
+}

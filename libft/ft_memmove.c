@@ -1,26 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycanga <ycanga@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/12 22:18:56 by ycanga            #+#    #+#             */
-/*   Updated: 2022/10/12 22:18:57 by ycanga           ###   ########.fr       */
+/*   Created: 2022/10/12 22:16:19 by ycanga            #+#    #+#             */
+/*   Updated: 2022/10/12 22:16:20 by ycanga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include <stdarg.h>
-# include <unistd.h>
+void	*ft_memmove(void *dst, const void *src, size_t len)
+{
+	char	*s;
+	char	*d;
+	size_t	i;
 
-int	ft_printf(const char *format, ...);
-int	ft_select(va_list args, const char select);
-int	ft_print_char(int c);
-int	ft_print_string(char *str);
-int	ft_print_number(int n);
-int	ft_print_unumber(unsigned int n);
-int	ft_hex(unsigned long p, char *base, int check, int baselen);
-#endif
+	s = (char *)src;
+	d = (char *)dst;
+	i = 0;
+	if (!len || dst == src)
+		return (dst);
+	if (d > s)
+	{
+		while (len-- > 0)
+			d[len] = s[len];
+	}
+	else
+	{
+		while (i < len)
+		{
+			d[i] = s[i];
+			i++;
+		}
+	}
+	return (dst);
+}

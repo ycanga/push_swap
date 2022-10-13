@@ -1,50 +1,47 @@
 NAME = push_swap
 
-SRCS = push_swap.c utils_1.c error.c
-
-LIBFT = ./ft_printf/libftprintf.a
+SRC = $(wildcard *.c)
+OBJS = $(SRC:.c=.o)
 
 CC = gcc
+CFLAGS = -Wall -Wextra -Werror
+LIB= libft/libft.a
+PRINT= ft_printf/libftprintf.a
 
-CFLAGS = -Wall -Werror -Wextra
+INC_FT = libft
+INC_FT_PRINTF = ft_printf
 
-all: $(NAME)
+all: $(LIB) $(PRINT) $(NAME)
 
-$(NAME): $(SRCS)
-	@make -C ./ft_printf
-	@echo "\033[33mCreating push_swap...\x1b[0m"
-	@$(CC) $(CFLAGS) $(SRCS) $(LIBFT) -o $(NAME)
-	@echo "\033[32mpush_swap created...\x1b[0m"
+$(LIB):
+	@make -C libft
+	@echo "\x1b[33mlibft compilation success\x1b[0m"
 
-test:
-	@make $(NAME)
-	@echo "\033[33mCompiling true digits...\n"
-	@./push_swap 5 4 2 1 6 8 7 3 123 85
+$(PRINT):
+	@make -C ft_printf
+	@echo "\x1b[33mprintf compilation success\x1b[0m"
 
-test2:
-	@make $(NAME)
-	@echo "\033[31mCompiling wrong digits...\n"
-	@./push_swap 1 2 3 4 5 6 7 8 9 10 A C
+$(NAME): ${OBJS}
+	@$(CC) $(OBJS) -o $(NAME) $(LIB) $(PRINT)
+	@echo "\x1b[33mpush_swap ready to start\x1b[0m"
 
-test3:
-	@make $(NAME)
-	@echo "\033[31mCompiling wrong digits...\n"
-	@./push_swap "1 2 3 4 5 6 7 8 9 10 A C"
-
-test4:
-	@make $(NAME)
-	@echo "\033[33mCompiling true digits...\n"
-	@./push_swap "5 4 2 1 6 8 7 3 123 85"
+.c.o:
+	@$(CC) $(CFLAGS) -I $(INC_FT) -I $(INC_FT_PRINTF) -c $< -o $@
 
 clean:
-	@printf '\033[31m Files deleted. !\n'
-	@make fclean -C ./ft_printf
+	@rm $(OBJS)
+	@echo "\x1b[32mClean success\x1b[0m"
 
-fclean:
-	@printf '\033[31m Files deleted. !\n'
-	@make fclean -C ./ft_printf
-	@rm -rf $(NAME)
+fclean: clean
+	@rm $(NAME)
+
+ffclean: fclean
+	@make fclean -C libft
+	@make fclean -C ft_printf
+
+norm:
+	@norminette $(SRC) push_swap.h
 
 re: fclean all
 
-.PHONY: all fclean clean re
+.PHONY: all re clean fclean ffclean

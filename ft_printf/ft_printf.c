@@ -5,59 +5,59 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycanga <ycanga@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/28 19:34:26 by ycanga            #+#    #+#             */
-/*   Updated: 2022/08/28 19:34:27 by ycanga           ###   ########.fr       */
+/*   Created: 2022/10/12 22:18:51 by ycanga            #+#    #+#             */
+/*   Updated: 2022/10/12 22:18:52 by ycanga           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	arg_printer(char c, va_list macro)
+int	ft_select(va_list args, const char select)
 {
-	int	erochar;
+	int	count;
 
-	if (c == 'c')
-	{
-		erochar = va_arg(macro, int);
-		return (write(1, &erochar, 1));
-	}
-	if (c == 's')
-		return (ft_putstr(va_arg(macro, char *)));
-	if (c == 'p')
-		return (ft_putpointer(va_arg(macro, unsigned long int)));
-	if (c == 'd' || c == 'i')
-		return (ft_putnbr(va_arg(macro, int)));
-	if (c == 'u')
-		return (ft_putunsigned(va_arg(macro, unsigned int)));
-	if (c == 'x')
-		return (ft_puthex(va_arg(macro, unsigned int), "0123456789abcdef"));
-	if (c == 'X')
-		return (ft_puthex(va_arg(macro, unsigned int), "0123456789ABCDEF"));
-	if (c == '%')
-		return (ft_putstr("%"));
-	return (0);
+	count = 0;
+	if (select == 'c')
+		count += ft_print_char(va_arg(args, int));
+	else if (select == 's')
+		count += ft_print_string(va_arg(args, char *));
+	else if (select == 'p')
+		count += ft_hex(va_arg(args, unsigned long), "0123456789abcdef", 1, 16);
+	else if (select == 'd' || select == 'i')
+		count += ft_print_number(va_arg(args, int));
+	else if (select == 'u')
+		count += ft_print_unumber(va_arg(args, unsigned int));
+	else if (select == 'x')
+		count += ft_hex(va_arg(args, unsigned), "0123456789abcdef", 0, 16);
+	else if (select == 'X')
+		count += ft_hex(va_arg(args, unsigned), "0123456789ABCDEF", 0, 16);
+	else if (select == '%')
+		count += write(1, "%", 1);
+	else
+		count += write(1, &select, 1);
+	return (count);
 }
 
-int	ft_printf(const char *key, ...)
+int	ft_printf(const char *str, ...)
 {
-	va_list	macro;
-	int		i;
-	int		leng;
+	int		c;
+	int		print_count;
+	va_list	args;
 
-	va_start(macro, key);
-	i = 0;
-	leng = 0;
-	while (key[i])
+	c = 0;
+	print_count = 0;
+	va_start(args, str);
+	while (str[c])
 	{
-		if (key[i] == '%')
+		if (str[c] == '%')
 		{
-			leng += arg_printer(key[i + 1], macro);
-			i++;
+			print_count += ft_select(args, str[c + 1]);
+				c++;
 		}
 		else
-			leng += write(1, &key[i], 1);
-		i++;
+			print_count += ft_print_char(str[c]);
+		c++;
 	}
-	va_end(macro);
-	return (leng);
+	va_end(args);
+	return (print_count);
 }
